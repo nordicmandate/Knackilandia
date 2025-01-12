@@ -1,0 +1,45 @@
+/* General body styling */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f8ff; /* Light background color */
+    color: #333; /* Dark text for contrast */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Make sure the body fills the full height of the page */
+    margin: 0;
+  }
+  
+  /* Container for the countdown timer */
+  .timer-container {
+    background-color: #4CAF50; /* Green background */
+    color: white;
+    padding: 20px 40px;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    font-size: 2rem;
+    display: inline-block;
+  }
+  
+  /* The countdown timer itself */
+  #countdown {
+    font-size: 3rem;
+    font-weight: bold;
+    margin-top: 10px;
+    padding: 10px;
+    background-color: #ff5722; /* Orange background for the countdown */
+    border-radius: 5px;
+    width: 100%;
+    display: inline-block;
+  }
+  
+  /* Style for the labels (for example "days", "hours", "minutes", etc.) */
+  .timer-label {
+    font-size: 1.2rem;
+    color: #fff;
+    text-transform: uppercase;
+    margin-top: 5px;
+    letter-spacing: 1px;
+  }
+  
