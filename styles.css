@@ -4,6 +4,7 @@ body {
     background-color: #f0f8ff;
     color: #333;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     height: 100vh;
@@ -11,8 +12,23 @@ body {
     text-align: center;
 }
 
-/* Countdown timer container */
-.timer-container {
+/* Smaller text styling */
+.small-text {
+    font-size: 1.2rem;
+    color: #555;
+    margin-top: 10px;
+}
+
+/* Countdown heading styling */
+h2 {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #4CAF50;
+    margin-top: 30px;
+}
+
+/* Countdown timer container styling */
+.countdown-container {
     background-color: #4CAF50;
     color: white;
     padding: 40px 80px;
@@ -22,9 +38,10 @@ body {
     display: inline-block;
     width: 80%;
     max-width: 800px;
+    margin-top: 30px;
 }
 
-/* Countdown numbers */
+/* Countdown numbers styling */
 #countdown {
     font-size: 5rem;
     font-weight: bold;
@@ -34,31 +51,8 @@ body {
     border-radius: 10px;
 }
 
-/* Label for units */
+/* Label for units styling */
 .timer-label {
     font-size: 1.5rem;
     margin-top: 10px;
 }
-script.js
-javascript
-Copy code
-// Countdown timer logic
-const countdownDate = new Date("June 20, 2025 00:00:00").getTime();
-
-const countdownFunction = setInterval(function() {
-    const now = new Date().getTime();
-    const distance = countdownDate - now;
-
-    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-    document.getElementById("countdown").innerHTML = 
-        days + "d " + hours + "h " + minutes + "m " + seconds + "s ";
-
-    if (distance < 0) {
-        clearInterval(countdownFunction);
-        document.getElementById("countdown").innerHTML = "Midsummer has arrived!";
-    }
-}, 1000);
