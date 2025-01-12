@@ -1,45 +1,64 @@
 /* General body styling */
 body {
     font-family: Arial, sans-serif;
-    background-color: #f0f8ff; /* Light background color */
-    color: #333; /* Dark text for contrast */
+    background-color: #f0f8ff;
+    color: #333;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh; /* Make sure the body fills the full height of the page */
+    height: 100vh;
     margin: 0;
-  }
-  
-  /* Container for the countdown timer */
-  .timer-container {
-    background-color: #4CAF50; /* Green background */
-    color: white;
-    padding: 20px 40px;
-    border-radius: 10px;
     text-align: center;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-    font-size: 2rem;
-    display: inline-block;
-  }
-  
-  /* The countdown timer itself */
-  #countdown {
+}
+
+/* Countdown timer container */
+.timer-container {
+    background-color: #4CAF50;
+    color: white;
+    padding: 40px 80px;
+    border-radius: 15px;
+    box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.2);
     font-size: 3rem;
-    font-weight: bold;
-    margin-top: 10px;
-    padding: 10px;
-    background-color: #ff5722; /* Orange background for the countdown */
-    border-radius: 5px;
-    width: 100%;
     display: inline-block;
-  }
-  
-  /* Style for the labels (for example "days", "hours", "minutes", etc.) */
-  .timer-label {
-    font-size: 1.2rem;
-    color: #fff;
-    text-transform: uppercase;
-    margin-top: 5px;
-    letter-spacing: 1px;
-  }
-  
+    width: 80%;
+    max-width: 800px;
+}
+
+/* Countdown numbers */
+#countdown {
+    font-size: 5rem;
+    font-weight: bold;
+    margin-top: 20px;
+    background-color: #ff5722;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+/* Label for units */
+.timer-label {
+    font-size: 1.5rem;
+    margin-top: 10px;
+}
+script.js
+javascript
+Copy code
+// Countdown timer logic
+const countdownDate = new Date("June 20, 2025 00:00:00").getTime();
+
+const countdownFunction = setInterval(function() {
+    const now = new Date().getTime();
+    const distance = countdownDate - now;
+
+    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+    document.getElementById("countdown").innerHTML = 
+        days + "d " + hours + "h " + minutes + "m " + seconds + "s ";
+
+    if (distance < 0) {
+        clearInterval(countdownFunction);
+        document.getElementById("countdown").innerHTML = "Midsummer has arrived!";
+    }
+}, 1000);
