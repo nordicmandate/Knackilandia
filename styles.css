@@ -50,6 +50,7 @@ h2 {
     background-color: #ff5722;
     padding: 20px;
     border-radius: 10px;
+    display: block;
 }
 
 /* Label for units styling */
