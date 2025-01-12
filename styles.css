@@ -7,7 +7,7 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    height: 100vh; /* Ensures the content is vertically centered */
     margin: 0;
     text-align: center;
 }
@@ -39,6 +39,7 @@ h2 {
     width: 80%;
     max-width: 800px;
     margin-top: 30px;
+    text-align: center; /* Ensures the countdown numbers are centered */
 }
 
 /* Countdown numbers styling */
