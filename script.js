@@ -1,5 +1,5 @@
 // Countdown timer logic
-const countdownDate = new Date("June 20, 2025 00:00:00").getTime();
+const countdownDate = new Date("November 14, 2025 18:00:00").getTime();
 
 const countdownFunction = setInterval(function() {
     const now = new Date().getTime();
