@@ -2,12 +2,22 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Midsummer 2026</title>
 
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
   <style>
+    :root {
+      --primary: #1f4d37;
+      --accent: #2f6f4e;
+      --text: #1f2937;
+      --muted: #6b7280;
+      --bg: #f6f7f5;
+      --card: rgba(255,255,255,0.9);
+    }
+
     * {
       margin: 0;
       padding: 0;
@@ -20,32 +30,22 @@
     }
 
     body {
-      margin-left: 260px; /* space for sidebar */
-      color: #1f2937;
-      background: 
-        linear-gradient(135deg, rgba(240, 248, 240, 0.65), rgba(250, 245, 235, 0.65), rgba(235, 245, 250, 0.65)),
-        url("background.png") no-repeat center center/cover;
+      background: url("background.png") no-repeat center center/cover;
       background-attachment: fixed;
-      overflow-x: hidden;
+      color: var(--text);
+      margin-left: 260px;
     }
 
+    /* Overlay for readability */
     body::before {
       content: "";
       position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-      background: radial-gradient(circle at 20% 20%, rgba(255,255,255,0.3), transparent 40%),
-                  radial-gradient(circle at 80% 30%, rgba(200,230,210,0.25), transparent 50%);
-      animation: floatGlow 14s ease-in-out infinite alternate;
+      inset: 0;
+      background: linear-gradient(
+        rgba(255,255,255,0.75),
+        rgba(255,255,255,0.85)
+      );
       z-index: 0;
-    }
-
-    @keyframes floatGlow {
-      from { transform: translateY(0px); }
-      to { transform: translateY(-25px); }
     }
 
     /* SIDEBAR */
@@ -55,152 +55,149 @@
       left: 0;
       width: 260px;
       height: 100%;
-      background: rgba(255, 255, 255, 0.88);
-      backdrop-filter: blur(10px);
-      border-right: 2px solid #2f6f4e;
-      padding: 24px;
-      z-index: 2000;
+      background: rgba(255,255,255,0.95);
+      border-right: 1px solid #e5e7eb;
+      padding: 32px 24px;
       display: flex;
       flex-direction: column;
+      z-index: 10;
     }
 
-    #sidebar .sidebar-logo img {
-      width: 100%;
-      margin-bottom: 20px;
+    .sidebar-title {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 40px;
     }
 
-    #sidebar .sidebar-nav {
+    .sidebar-nav {
       display: flex;
       flex-direction: column;
-      gap: 14px;
-      margin-bottom: 30px;
+      gap: 16px;
     }
 
-    #sidebar .sidebar-nav a {
-      color: #2f6f4e;
+    .sidebar-nav a {
       text-decoration: none;
-      font-weight: 600;
+      color: var(--text);
+      font-weight: 500;
+      font-size: 15px;
       transition: 0.2s;
     }
 
-    #sidebar .sidebar-nav a:hover {
-      padding-left: 6px;
-      color: #1f4d37;
+    .sidebar-nav a:hover {
+      color: var(--accent);
+      transform: translateX(4px);
     }
 
-    #sidebar .sidebar-info {
+    .sidebar-footer {
       margin-top: auto;
       font-size: 14px;
-      color: #1f4d37;
-    }
-
-    #sidebar .sidebar-socials {
-      margin-top: 20px;
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-
-    #sidebar .sidebar-socials a {
-      font-size: 14px;
-      color: #2f6f4e;
-      text-decoration: none;
+      color: var(--muted);
+      line-height: 1.6;
     }
 
     /* HERO */
     header {
       height: 100vh;
       display: flex;
-      justify-content: center;
       align-items: center;
+      justify-content: center;
       text-align: center;
-      padding-top: 60px;
       position: relative;
       z-index: 1;
+      padding: 40px;
     }
 
-    .hero-card {
-      background: rgba(255,255,255,0.75);
-      backdrop-filter: blur(16px);
-      padding: 40px 60px;
-      border-radius: 20px;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.12);
+    .hero {
+      background: var(--card);
+      padding: 60px 70px;
+      border-radius: 18px;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.08);
+      max-width: 700px;
     }
 
-    header h2 {
-      font-size: 4rem;
-      color: #2f6f4e;
+    .hero h1 {
+      font-size: 3.5rem;
+      color: var(--primary);
+      letter-spacing: -1px;
+    }
+
+    .hero p {
+      margin-top: 16px;
+      color: var(--muted);
+      font-size: 1.1rem;
     }
 
     .countdown {
-      margin-top: 15px;
-      font-size: 1.2rem;
-      opacity: 0.85;
+      margin-top: 20px;
+      font-weight: 600;
+      color: var(--accent);
     }
 
+    /* SECTIONS */
     section {
       max-width: 900px;
       margin: 0 auto;
       padding: 100px 20px;
-      opacity: 0;
-      transform: translateY(40px);
-      transition: all 0.8s ease;
       position: relative;
       z-index: 1;
     }
 
-    section.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
     section h2 {
-      margin-bottom: 20px;
       font-size: 2rem;
-      color: #111827;
+      margin-bottom: 20px;
+      color: var(--primary);
     }
 
-    p {
-      color: #374151;
-      line-height: 1.6;
+    section p {
+      font-size: 1.05rem;
+      line-height: 1.7;
+      color: var(--muted);
+    }
+
+    /* CARD STYLE */
+    .card {
+      background: var(--card);
+      padding: 30px;
+      border-radius: 14px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.06);
     }
 
     iframe {
       width: 100%;
       height: 300px;
-      border: none;
       border-radius: 12px;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+      border: none;
+      margin-top: 10px;
     }
 
+    /* FORM */
     form {
       display: flex;
       flex-direction: column;
-      gap: 10px;
-      background: rgba(255,255,255,0.8);
-      padding: 20px;
-      border-radius: 12px;
-      backdrop-filter: blur(10px);
-      box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+      gap: 12px;
     }
 
-    input, textarea, button {
-      padding: 10px;
-      border-radius: 6px;
+    input, textarea {
+      padding: 12px;
+      border-radius: 8px;
       border: 1px solid #e5e7eb;
       font-size: 0.95rem;
     }
 
     button {
-      background: #2f6f4e;
+      padding: 12px;
+      border: none;
+      border-radius: 8px;
+      background: var(--accent);
       color: white;
       font-weight: 600;
       cursor: pointer;
-      border: none;
+      transition: 0.2s;
     }
 
     button:hover {
-      background: #255a3f;
+      background: var(--primary);
     }
 
     /* MOBILE */
@@ -212,17 +209,24 @@
       body {
         margin-left: 0;
       }
+
+      .hero {
+        padding: 40px 30px;
+      }
+
+      .hero h1 {
+        font-size: 2.5rem;
+      }
     }
+
   </style>
 </head>
+
 <body>
 
 <!-- SIDEBAR -->
 <aside id="sidebar">
-  <div class="sidebar-logo">
-    <!-- Replace with your logo if available -->
-    <img src="logo.png" alt="Midsummer Logo">
-  </div>
+  <div class="sidebar-title">Midsummer</div>
 
   <nav class="sidebar-nav">
     <a href="#about">About</a>
@@ -231,50 +235,75 @@
     <a href="#rsvp">RSVP</a>
   </nav>
 
-  <div class="sidebar-info">
-    <p>19–21 June</p>
-    <p>Berghamn Harbour, Åland</p>
-  </div>
-
-  <div class="sidebar-socials">
-    <a href="#">Instagram</a>
-    <a href="#">Facebook</a>
+  <div class="sidebar-footer">
+    19–21 June<br/>
+    Berghamn Harbour, Åland
   </div>
 </aside>
 
+<!-- HERO -->
 <header>
-  <div class="hero-card">
-    <h2>Midsummer 2026</h2>
+  <div class="hero">
+    <h1>Midsummer 2026</h1>
+    <p>Join us for a weekend of celebration, nature, and good company.</p>
     <div class="countdown" id="countdown"></div>
   </div>
 </header>
 
+<!-- ABOUT -->
 <section id="about">
-  <h2>About</h2>
-  <p>Due to the great success last year this year's edition of Midsummer is happening on Eckerö, Åland. Time to get the group together and cheer again!</p>
+  <div class="card">
+    <h2>About</h2>
+    <p>
+      Due to the great success last year this year's edition of Midsummer is happening on Eckerö, Åland. Time to get the group together and cheer again!
+    </p>
+  </div>
 </section>
 
+<!-- LOCATION -->
 <section id="location">
-  <h2>Location</h2>
-  <iframe src="https://www.google.com/maps?q=Berghamn%20harbour%20Åland%20Islands&output=embed"></iframe>
+  <div class="card">
+    <h2>Location</h2>
+    <p>Berghamn Harbour, Åland</p>
+    <iframe src="https://www.google.com/maps?q=Berghamn%20harbour%20Åland%20Islands&output=embed"></iframe>
+  </div>
 </section>
 
+<!-- TRAVEL -->
 <section id="travel">
-  <h2>How to Get There</h2>
-  <p>Book ferry tickets here: <a href="https://www.eckerolinjen.se/en" target="_blank">https://www.eckerolinjen.se/en</a></p>
-  <p>Option 1: 10:00-13:00 Grisslehamn to Eckerö (Bus 07:30 Cityterminalen)</p>
-  <p>Option 2: 15:00-18:00 Grisslehamn to Eckerö (Bus 12.30 Cityterminalen)</p>
-  <p>After arriving in Eckerö, the summer place is quite close by. We'll see how we organize transport out - either picking you up by boat or by car.</p>
+  <div class="card">
+    <h2>How to Get There</h2>
+
+    <p>
+      Book ferry tickets here: 
+      <a href="https://www.eckerolinjen.se/en" target="_blank">Eckerö Line</a>
+    </p>
+
+    <br/>
+
+    <p><strong>Option 1:</strong> 10:00–13:00 Grisslehamn to Eckerö (Bus 07:30 Cityterminalen)</p>
+    <p><strong>Option 2:</strong> 15:00–18:00 Grisslehamn to Eckerö (Bus 12:30 Cityterminalen)</p>
+
+    <br/>
+
+    <p>
+      After arriving in Eckerö, the summer place is quite close by. We'll see how we organize transport out - either picking you up by boat or by car.
+    </p>
+  </div>
 </section>
 
+<!-- RSVP -->
 <section id="rsvp">
-  <h2>RSVP</h2>
-  <form>
-    <input type="text" placeholder="Your Name" required />
-    <input type="email" placeholder="Your Email" required />
-    <textarea placeholder="Message"></textarea>
-    <button type="submit">Send RSVP</button>
-  </form>
+  <div class="card">
+    <h2>RSVP</h2>
+
+    <form>
+      <input type="text" placeholder="Your Name" required />
+      <input type="email" placeholder="Your Email" required />
+      <textarea placeholder="Message"></textarea>
+      <button type="submit">Send RSVP</button>
+    </form>
+  </div>
 </section>
 
 <script>
@@ -286,32 +315,22 @@
     const distance = targetDate - now;
 
     if (distance < 0) {
-      countdownEl.innerHTML = "The party has started! 🎉";
+      countdownEl.innerHTML = "The party has started 🎉";
       return;
     }
 
     const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+    const hours = Math.floor((distance / (1000 * 60 * 60)) % 24);
+    const minutes = Math.floor((distance / (1000 * 60)) % 60);
+    const seconds = Math.floor((distance / 1000) % 60);
 
-    countdownEl.innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s left`;
+    countdownEl.innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s`;
   }
 
   setInterval(updateCountdown, 1000);
   updateCountdown();
-
-  const sections = document.querySelectorAll("section");
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add("visible");
-      }
-    });
-  }, { threshold: 0.2 });
-
-  sections.forEach(section => observer.observe(section));
 </script>
 
 </body>
 </html>
+
