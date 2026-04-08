@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Midsummer 2026</title>
 
-  <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
   <style>
@@ -14,8 +13,7 @@
       --accent: #2f6f4e;
       --text: #1f2937;
       --muted: #6b7280;
-      --bg: #f6f7f5;
-      --card: rgba(255,255,255,0.9);
+      --card: rgba(255,255,255,0.92);
     }
 
     * {
@@ -33,96 +31,77 @@
       background: url("background.png") no-repeat center center/cover;
       background-attachment: fixed;
       color: var(--text);
-      margin-left: 260px;
     }
 
     body::before {
       content: "";
       position: fixed;
       inset: 0;
-      background: linear-gradient(
-        rgba(255,255,255,0.75),
-        rgba(255,255,255,0.85)
-      );
+      background: linear-gradient(rgba(255,255,255,0.75), rgba(255,255,255,0.9));
       z-index: 0;
     }
 
-    #sidebar {
+    /* NAVBAR */
+    nav {
       position: fixed;
       top: 0;
-      left: 0;
-      width: 260px;
-      height: 100%;
-      background: rgba(255,255,255,0.95);
-      border-right: 1px solid #e5e7eb;
-      padding: 32px 24px;
+      width: 100%;
+      background: rgba(255,255,255,0.9);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid #e5e7eb;
       display: flex;
-      flex-direction: column;
+      justify-content: space-between;
+      padding: 16px 32px;
       z-index: 10;
     }
 
-    .sidebar-title {
-      font-size: 20px;
+    .logo {
       font-weight: 700;
       color: var(--primary);
-      margin-bottom: 40px;
     }
 
-    .sidebar-nav {
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-    }
-
-    .sidebar-nav a {
+    .nav-links a {
+      margin-left: 20px;
       text-decoration: none;
       color: var(--text);
       font-weight: 500;
-      font-size: 15px;
-      transition: 0.2s;
-    }
-
-    .sidebar-nav a:hover {
-      color: var(--accent);
-      transform: translateX(4px);
-    }
-
-    .sidebar-footer {
-      margin-top: auto;
       font-size: 14px;
-      color: var(--muted);
-      line-height: 1.6;
     }
 
+    .nav-links a:hover {
+      color: var(--accent);
+    }
+
+    /* HERO */
     header {
       height: 100vh;
       display: flex;
       align-items: center;
       justify-content: center;
       text-align: center;
+      padding: 20px;
       position: relative;
       z-index: 1;
-      padding: 40px;
     }
 
     .hero {
       background: var(--card);
-      padding: 60px 70px;
-      border-radius: 18px;
-      box-shadow: 0 20px 50px rgba(0,0,0,0.08);
-      max-width: 700px;
+      padding: 60px;
+      border-radius: 20px;
+      max-width: 750px;
+      box-shadow: 0 25px 60px rgba(0,0,0,0.08);
     }
 
     .hero h1 {
       font-size: 3.5rem;
       color: var(--primary);
-      letter-spacing: -1px;
     }
 
     .hero p {
       margin-top: 16px;
       color: var(--muted);
       font-size: 1.1rem;
+      line-height: 1.6;
     }
 
     .countdown {
@@ -131,8 +110,50 @@
       color: var(--accent);
     }
 
+    .cta-btn {
+      margin-top: 25px;
+      display: inline-block;
+      padding: 12px 20px;
+      border-radius: 8px;
+      background: var(--accent);
+      color: white;
+      text-decoration: none;
+      font-weight: 600;
+      transition: 0.2s;
+    }
+
+    .cta-btn:hover {
+      background: var(--primary);
+    }
+
+    /* DETAILS STRIP */
+    .details {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      padding: 30px;
+      background: rgba(255,255,255,0.85);
+      border-top: 1px solid #e5e7eb;
+      border-bottom: 1px solid #e5e7eb;
+      position: relative;
+      z-index: 1;
+      flex-wrap: wrap;
+      text-align: center;
+    }
+
+    .detail-box h3 {
+      color: var(--primary);
+      margin-bottom: 6px;
+    }
+
+    .detail-box p {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    /* SECTIONS */
     section {
-      max-width: 900px;
+      max-width: 1000px;
       margin: 0 auto;
       padding: 100px 20px;
       position: relative;
@@ -145,12 +166,6 @@
       color: var(--primary);
     }
 
-    section p {
-      font-size: 1.05rem;
-      line-height: 1.7;
-      color: var(--muted);
-    }
-
     .card {
       background: var(--card);
       padding: 30px;
@@ -160,27 +175,55 @@
 
     iframe {
       width: 100%;
-      height: 300px;
+      height: 320px;
       border-radius: 12px;
       border: none;
-      margin-top: 10px;
+      margin-top: 15px;
+    }
+
+    /* GALLERY */
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 16px;
+      margin-top: 20px;
+    }
+
+    .gallery img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      border-radius: 12px;
+      transition: 0.3s;
+    }
+
+    .gallery img:hover {
+      transform: scale(1.03);
+    }
+
+    /* FOOTER */
+    footer {
+      text-align: center;
+      padding: 40px;
+      color: var(--muted);
+      font-size: 14px;
     }
 
     @media (max-width: 768px) {
-      #sidebar {
-        display: none;
-      }
-
-      body {
-        margin-left: 0;
-      }
-
       .hero {
-        padding: 40px 30px;
+        padding: 40px 25px;
       }
 
       .hero h1 {
         font-size: 2.5rem;
+      }
+
+      nav {
+        padding: 12px 20px;
+      }
+
+      .nav-links {
+        display: none;
       }
     }
   </style>
@@ -188,20 +231,15 @@
 
 <body>
 
-<!-- SIDEBAR -->
-<aside id="sidebar">
-  <div class="sidebar-title">Midsummer</div>
-
-  <nav class="sidebar-nav">
-    <a href="#travel">Travel Info</a>
+<!-- NAVBAR -->
+<nav>
+  <div class="logo">Midsummer</div>
+  <div class="nav-links">
     <a href="#location">Location</a>
-  </nav>
-
-  <div class="sidebar-footer">
-    19–21 June<br/>
-    Berghamn Harbour, Åland
+    <a href="#travel">Travel</a>
+    <a href="#gallery">Gallery</a>
   </div>
-</aside>
+</nav>
 
 <!-- HERO -->
 <header>
@@ -209,8 +247,25 @@
     <h1>Midsummer 2026</h1>
     <p>Due to the massive success last year, it's time to get together for the best celebration in the Nordics, this time on Åland!</p>
     <div class="countdown" id="countdown"></div>
+    <a href="#travel" class="cta-btn">Plan Your Trip</a>
   </div>
 </header>
+
+<!-- DETAILS STRIP -->
+<div class="details">
+  <div class="detail-box">
+    <h3>Date</h3>
+    <p>19–21 June 2026</p>
+  </div>
+  <div class="detail-box">
+    <h3>Location</h3>
+    <p>Berghamn Harbour, Åland</p>
+  </div>
+  <div class="detail-box">
+    <h3>Vibe</h3>
+    <p>Nature, celebration, friends</p>
+  </div>
+</div>
 
 <!-- LOCATION -->
 <section id="location">
@@ -227,22 +282,40 @@
     <h2>How to Get There</h2>
 
     <p>
-      Book ferry tickets here: 
+      Book ferry tickets here:
       <a href="https://www.eckerolinjen.se/en" target="_blank">Eckerö Line</a>
     </p>
 
     <br/>
 
-    <p><strong>Option 1:</strong> 10:00–13:00 Grisslehamn to Eckerö (Bus 07:30 Cityterminalen)</p>
-    <p><strong>Option 2:</strong> 15:00–18:00 Grisslehamn to Eckerö (Bus 12:30 Cityterminalen)</p>
+    <p><strong>Option 1:</strong> 10:00–13:00 Grisslehamn → Eckerö (Bus 07:30 Cityterminalen)</p>
+    <p><strong>Option 2:</strong> 15:00–18:00 Grisslehamn → Eckerö (Bus 12:30 Cityterminalen)</p>
 
     <br/>
 
     <p>
-      After arriving in Eckerö, the summer place is quite close by. We'll see how we organize transport out - either picking you up by boat or by car.
+      After arriving in Eckerö, the summer place is close by. Transport will be arranged by boat or car depending on timing.
     </p>
   </div>
 </section>
+
+<!-- GALLERY -->
+<section id="gallery">
+  <div class="card">
+    <h2>Gallery</h2>
+
+    <div class="gallery">
+      <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e" />
+      <img src="https://images.unsplash.com/photo-1500375592092-40eb2168fd21" />
+      <img src="https://images.unsplash.com/photo-1493558103817-58b2924bce98" />
+      <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee" />
+    </div>
+  </div>
+</section>
+
+<footer>
+  © 2026 Midsummer Gathering
+</footer>
 
 <script>
   const countdownEl = document.getElementById("countdown");
@@ -271,6 +344,7 @@
 
 </body>
 </html>
+
 
 
 
