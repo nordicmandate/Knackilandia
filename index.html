@@ -1,27 +1,359 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Knackilandia</title>
-        <link rel="stylesheet" href="styles.css">
-    </head>
-    <body>
-        <!-- Main Heading -->
-        <h1>Welcome to Knackilandia!</h1>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Midsummer 2026</title>
 
-        <!-- Smaller Text Paragraph -->
-        <p class="small-text">This is the place where the real bastardos from Switzerland and Finland will see the most important happenings of the year.</p>
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
 
-        <!-- Big Heading for Countdown -->
-        <h2>Midsummer countdown</h2>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Inter', sans-serif;
+    }
 
-        <!-- Countdown Timer Section -->
-        <div class="countdown-container">
-            <div id="countdown"></div>
-        </div>  
+    html {
+      scroll-behavior: smooth;
+    }
 
-        <!-- Link to JavaScript File -->
-        <script src="script.js"></script>
-    </body>
+    body {
+      color: #fff;
+      background: url("background.png") no-repeat center center/cover;
+      background-attachment: fixed;
+      overflow-x: hidden;
+    }
+
+    /* Overlay */
+    .overlay {
+      background: rgba(0, 0, 0, 0.65);
+      min-height: 100vh;
+    }
+
+    /* Topbar */
+    .topbar {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 30px;
+      background: rgba(0,0,0,0.4);
+      backdrop-filter: blur(10px);
+      z-index: 1000;
+      transition: background 0.3s;
+    }
+
+    .topbar.scrolled {
+      background: rgba(0,0,0,0.8);
+    }
+
+    .topbar h1 {
+      font-size: 1.2rem;
+      font-weight: 600;
+      letter-spacing: 1px;
+    }
+
+    .date {
+      font-size: 0.85rem;
+      opacity: 0.8;
+      margin-left: 10px;
+    }
+
+    nav a {
+      margin-left: 15px;
+      color: #fff;
+      text-decoration: none;
+      font-size: 0.9rem;
+      opacity: 0.7;
+      position: relative;
+    }
+
+    nav a.active,
+    nav a:hover {
+      opacity: 1;
+    }
+
+    nav a::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 2px;
+      bottom: -4px;
+      left: 0;
+      background: #ffcc00;
+      transition: width 0.3s;
+    }
+
+    nav a:hover::after,
+    nav a.active::after {
+      width: 100%;
+    }
+
+    /* Hero */
+    header {
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding-top: 60px;
+    }
+
+    header h2 {
+      font-size: 3.5rem;
+      letter-spacing: 2px;
+      animation: fadeInUp 1.5s ease;
+    }
+
+    .countdown {
+      margin-top: 15px;
+      font-size: 1.2rem;
+      opacity: 0.9;
+      animation: fadeInUp 2s ease;
+    }
+
+    /* Sections */
+    section {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 100px 20px;
+      opacity: 0;
+      transform: translateY(40px);
+      transition: all 0.8s ease;
+    }
+
+    section.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    section h2 {
+      margin-bottom: 20px;
+      font-size: 2rem;
+    }
+
+    ul {
+      padding-left: 20px;
+    }
+
+    iframe {
+      width: 100%;
+      height: 300px;
+      border: none;
+      border-radius: 10px;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    input, textarea, button {
+      padding: 10px;
+      border-radius: 5px;
+      border: none;
+    }
+
+    button {
+      background: #ffcc00;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 10px;
+    }
+
+    .grid img {
+      width: 100%;
+      border-radius: 8px;
+      transition: transform 0.4s ease, opacity 0.4s;
+      opacity: 0;
+      transform: scale(0.95);
+    }
+
+    .grid img.loaded {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    .grid img:hover {
+      transform: scale(1.08);
+    }
+
+    /* Animations */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (max-width: 600px) {
+      header h2 {
+        font-size: 2.2rem;
+      }
+
+      .topbar {
+        flex-direction: column;
+        gap: 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="overlay">
+
+  <div class="topbar" id="topbar">
+    <div style="display:flex; align-items:center;">
+      <h1>Midsummer 2026</h1>
+      <span class="date">June 19, 2026</span>
+    </div>
+    <nav>
+      <a href="#about">About</a>
+      <a href="#schedule">Schedule</a>
+      <a href="#location">Location</a>
+      <a href="#travel">Travel</a>
+      <a href="#rsvp">RSVP</a>
+      <a href="#gallery">Gallery</a>
+    </nav>
+  </div>
+
+  <header>
+    <h2>Midsummer 2026</h2>
+    <div class="countdown" id="countdown"></div>
+  </header>
+
+  <section id="about">
+    <h2>About</h2>
+    <p>Celebrate midsummer at our summer place in the Åland Islands with friends, nature, food, drinks, and good vibes.</p>
+  </section>
+
+  <section id="schedule">
+    <h2>Schedule</h2>
+    <ul>
+      <li>18:00 - Arrival & Welcome Drinks</li>
+      <li>19:00 - Dinner / BBQ</li>
+      <li>21:00 - Games & Activities</li>
+      <li>23:00 - Bonfire / Chill Time</li>
+    </ul>
+  </section>
+
+  <section id="location">
+    <h2>Location</h2>
+    <iframe src="https://www.google.com/maps?q=Eckerö%20Åland%20Islands&output=embed"></iframe>
+  </section>
+
+  <section id="travel">
+    <h2>How to Get There</h2>
+    <p>Most guests will travel from Stockholm using the Eckerölinjen ferry combined with the bus from Cityterminalen.</p>
+    <p>After arrival in Eckerö, we will arrange pickup by car or boat from Bodegan 44, Fiskeläget.</p>
+    <p>Please bring sheets, a good mood, and enough drinks 🍻</p>
+  </section>
+
+  <section id="rsvp">
+    <h2>RSVP</h2>
+    <form>
+      <input type="text" placeholder="Your Name" required />
+      <input type="email" placeholder="Your Email" required />
+      <textarea placeholder="Message"></textarea>
+      <button type="submit">Send RSVP</button>
+    </form>
+  </section>
+
+  <section id="gallery">
+    <h2>Gallery</h2>
+    <div class="grid">
+      <img src="gallery1.jpg" />
+      <img src="gallery2.jpg" />
+      <img src="gallery3.jpg" />
+      <img src="gallery4.jpg" />
+    </div>
+  </section>
+
+</div>
+
+<script>
+  // Countdown
+  const countdownEl = document.getElementById("countdown");
+  const targetDate = new Date("June 19, 2026 00:00:00").getTime();
+
+  function updateCountdown() {
+    const now = new Date().getTime();
+    const distance = targetDate - now;
+
+    if (distance < 0) {
+      countdownEl.innerHTML = "The party has started! 🎉";
+      return;
+    }
+
+    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+    countdownEl.innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s left`;
+  }
+
+  setInterval(updateCountdown, 1000);
+  updateCountdown();
+
+  // Scroll animation (sections fade in)
+  const sections = document.querySelectorAll("section");
+
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("visible");
+      }
+    });
+  }, { threshold: 0.2 });
+
+  sections.forEach(section => observer.observe(section));
+
+  // Navbar active link on scroll
+  const navLinks = document.querySelectorAll("nav a");
+
+  window.addEventListener("scroll", () => {
+    let scrollPos = window.scrollY + 100;
+
+    sections.forEach(section => {
+      if (scrollPos >= section.offsetTop && scrollPos < section.offsetTop + section.offsetHeight) {
+        navLinks.forEach(link => link.classList.remove("active"));
+        const activeLink = document.querySelector(`nav a[href="#${section.id}"]`);
+        if (activeLink) activeLink.classList.add("active");
+      }
+    });
+
+    // Topbar background change
+    const topbar = document.getElementById("topbar");
+    if (window.scrollY > 50) {
+      topbar.classList.add("scrolled");
+    } else {
+      topbar.classList.remove("scrolled");
+    }
+  });
+
+  // Image load animation
+  document.querySelectorAll(".grid img").forEach(img => {
+    img.onload = () => img.classList.add("loaded");
+  });
+</script>
+
+</body>
 </html>
+
