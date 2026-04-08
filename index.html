@@ -166,34 +166,6 @@
       margin-top: 10px;
     }
 
-    form {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-
-    input, textarea {
-      padding: 12px;
-      border-radius: 8px;
-      border: 1px solid #e5e7eb;
-      font-size: 0.95rem;
-    }
-
-    button {
-      padding: 12px;
-      border: none;
-      border-radius: 8px;
-      background: var(--accent);
-      color: white;
-      font-weight: 600;
-      cursor: pointer;
-      transition: 0.2s;
-    }
-
-    button:hover {
-      background: var(--primary);
-    }
-
     @media (max-width: 768px) {
       #sidebar {
         display: none;
@@ -223,7 +195,6 @@
   <nav class="sidebar-nav">
     <a href="#travel">Travel Info</a>
     <a href="#location">Location</a>
-    <a href="#rsvp">RSVP</a>
   </nav>
 
   <div class="sidebar-footer">
@@ -270,20 +241,6 @@
     <p>
       After arriving in Eckerö, the summer place is quite close by. We'll see how we organize transport out - either picking you up by boat or by car.
     </p>
-  </div>
-</section>
-
-<!-- RSVP -->
-<section id="rsvp">
-  <div class="card">
-    <h2>RSVP</h2>
-
-    <form>
-      <input type="text" placeholder="Your Name" required />
-      <input type="email" placeholder="Your Email" required />
-      <textarea placeholder="Message"></textarea>
-      <button type="submit">Send RSVP</button>
-    </form>
   </div>
 </section>
 
