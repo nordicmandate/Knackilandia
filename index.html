@@ -68,7 +68,6 @@
     .topbar h1 {
       font-size: 1.2rem;
       font-weight: 700;
-      letter-spacing: 1px;
       color: #111827;
     }
 
@@ -87,26 +86,10 @@
       transition: 0.3s;
     }
 
-    nav a.active,
-    nav a:hover {
+    nav a:hover,
+    nav a.active {
       opacity: 1;
       color: #2f6f4e;
-    }
-
-    nav a::after {
-      content: '';
-      position: absolute;
-      width: 0;
-      height: 2px;
-      bottom: -4px;
-      left: 0;
-      background: #2f6f4e;
-      transition: width 0.3s;
-    }
-
-    nav a:hover::after,
-    nav a.active::after {
-      width: 100%;
     }
 
     header {
@@ -131,7 +114,6 @@
 
     header h2 {
       font-size: 4rem;
-      letter-spacing: 2px;
       color: #2f6f4e;
     }
 
@@ -200,7 +182,6 @@
       font-weight: 600;
       cursor: pointer;
       border: none;
-      transition: 0.2s;
     }
 
     button:hover {
@@ -321,15 +302,11 @@
     if (window.scrollY > 50) topbar.classList.add("scrolled");
     else topbar.classList.remove("scrolled");
   });
-
-  window.addEventListener("scroll", () => {
-    const y = window.scrollY;
-    document.body.style.backgroundPosition = `center ${y * 0.3}px`;
-  });
 </script>
 
 </body>
 </html>
+
 
 
 
