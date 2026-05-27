@@ -7,87 +7,285 @@
 
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
+  <style>
     :root {
-      --primary: #0b3d2e;
-      --accent: #cfa43a; /* warm gold */
-      --text: #0f1724;
+      --primary: #1f4d37;
+      --accent: #2f6f4e;
+      --text: #1f2937;
       --muted: #6b7280;
-      --card: rgba(255,255,255,0.96);
-      --glass: rgba(255,255,255,0.75);
+      --card: rgba(255,255,255,0.92);
     }
 
-    * { box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
-    body {
+    * {
       margin: 0;
-      font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
-      color: var(--text);
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Inter', sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
       background: url("background.png") no-repeat center center/cover;
       background-attachment: fixed;
-      -webkit-font-smoothing:antialiased;
-      -moz-osx-font-smoothing:grayscale;
+      color: var(--text);
     }
 
-    /* subtle dark overlay for contrast */
-    body::before{
+    body::before {
       content: "";
-      position: fixed; inset: 0;
-      background: linear-gradient(180deg, rgba(0,0,0,0.18), rgba(255,255,255,0.06));
+      position: fixed;
+      inset: 0;
+      background: linear-gradient(rgba(255,255,255,0.75), rgba(255,255,255,0.9));
       z-index: 0;
     }
 
-    nav{
-      position:fixed; top:18px; left:50%; transform:translateX(-50%);
-      width: calc(100% - 48px); max-width:1100px;
-      background: rgba(255,255,255,0.86); backdrop-filter: blur(8px);
-      border-radius: 999px; padding: 10px 18px; z-index: 20;
-      display:flex; align-items:center; justify-content:space-between; box-shadow:0 8px 24px rgba(8,15,20,0.08);
+    /* NAVBAR */
+    nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background: rgba(255,255,255,0.9);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid #e5e7eb;
+      display: flex;
+      justify-content: space-between;
+      padding: 16px 32px;
+      z-index: 10;
     }
 
-    .logo{ font-weight:700; color:var(--primary); letter-spacing:0.6px; font-size:1.05rem; }
+    .logo {
+      font-weight: 700;
+      color: var(--primary);
+    }
 
-    .nav-links{ display:flex; gap:14px; align-items:center; }
-    .nav-links a{ color:var(--text); text-decoration:none; padding:8px 12px; border-radius:8px; font-weight:600; font-size:0.95rem; transition:all .18s ease; }
-    .nav-links a:hover{ background:var(--glass); color:var(--primary); transform:translateY(-2px); }
+    .nav-links a {
+      margin-left: 20px;
+      text-decoration: none;
+      color: var(--text);
+      font-weight: 500;
+      font-size: 14px;
+    }
 
-    header{ min-height:80vh; display:flex; align-items:center; justify-content:center; padding:48px 20px; position:relative; z-index:1; }
-    .hero{ max-width:1000px; width:100%; background: linear-gradient(180deg, rgba(255,255,255,0.96), rgba(255,255,255,0.94)); border-radius:18px; padding:64px; box-shadow:0 30px 80px rgba(6,10,8,0.12); text-align:center; }
-    .hero h1{ margin:0; font-size:3.6rem; color:var(--primary); line-height:1.02; }
-    .hero p{ margin-top:14px; color:var(--muted); font-size:1.05rem; }
-    .countdown{ margin-top:18px; font-weight:700; color:var(--primary); letter-spacing:0.6px; }
-    .cta-btn{ display:inline-block; margin-top:22px; padding:12px 22px; border-radius:10px; background:linear-gradient(90deg,var(--accent), #d8b24a); color:#082017; font-weight:700; text-decoration:none; border:none; cursor:pointer; box-shadow:0 10px 24px rgba(197,149,45,0.12); transition:transform .14s ease, box-shadow .14s ease; }
-    .cta-btn:hover{ transform:translateY(-4px); box-shadow:0 18px 36px rgba(197,149,45,0.18); }
+    .nav-links a:hover { color: var(--accent); }
+
+    /* HERO */
+    header {
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 20px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero {
+      background: var(--card);
+      padding: 60px;
+      border-radius: 20px;
+      max-width: 750px;
+      box-shadow: 0 25px 60px rgba(0,0,0,0.08);
+    }
+
+    .hero h1 {
+      font-size: 3.5rem;
+      color: var(--primary);
+    }
+
+    .hero p {
+      margin-top: 16px;
+      color: var(--muted);
+      font-size: 1.1rem;
+    }
+
+    .countdown {
+      margin-top: 20px;
+      font-weight: 600;
+      color: var(--accent);
+    }
+
+    .cta-btn {
+      margin-top: 25px;
+      display: inline-block;
+      padding: 12px 20px;
+      border-radius: 8px;
+      background: var(--accent);
+      color: white;
+      text-decoration: none;
+      font-weight: 600;
+      border: none;
+      cursor: pointer;
+    }
+
+    .cta-btn:hover { background: var(--primary); }
 
     /* DETAILS */
-    .details{ display:grid; grid-template-columns: repeat(auto-fit, minmax(180px,1fr)); gap:18px; padding:28px; max-width:1100px; margin: 18px auto 0; z-index:1; }
-    .detail-box{ background:var(--card); padding:18px; border-radius:12px; text-align:center; box-shadow:0 6px 20px rgba(8,15,20,0.04); }
-    .detail-box h3{ color:var(--primary); margin-bottom:6px; font-size:1rem; }
-    .detail-box p{ color:var(--muted); font-size:0.95rem; }
+    .details {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      padding: 30px;
+      background: rgba(255,255,255,0.85);
+      border-top: 1px solid #e5e7eb;
+      border-bottom: 1px solid #e5e7eb;
+      position: relative;
+      z-index: 1;
+      flex-wrap: wrap;
+      text-align: center;
+    }
+
+    .detail-box h3 {
+      color: var(--primary);
+      margin-bottom: 6px;
+    }
+
+    .detail-box p {
+      color: var(--muted);
+      font-size: 14px;
+    }
 
     /* SECTIONS */
-    section{ max-width:1000px; margin:0 auto; padding:80px 20px; position:relative; z-index:1; }
-    section h2{ font-size:1.6rem; margin-bottom:18px; color:var(--primary); }
-    .card{ background:var(--card); padding:28px; border-radius:12px; box-shadow:0 12px 30px rgba(6,10,8,0.06); }
-    iframe{ width:100%; height:360px; border-radius:10px; border:none; margin-top:14px; }
+    section {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 100px 20px;
+      position: relative;
+      z-index: 1;
+    }
 
-    #groceryList li{ display:flex; justify-content:space-between; margin-bottom:8px; padding:8px 0; border-bottom:1px solid #f0f0f0; }
-    #groceryList button{ border:none; background:transparent; color:#b91c1c; cursor:pointer; font-size:16px; }
+    section h2 {
+      font-size: 2rem;
+      margin-bottom: 20px;
+      color: var(--primary);
+    }
 
-    footer{ max-width:1100px; margin:0 auto; padding:36px 20px; color:var(--muted); font-size:14px; display:flex; justify-content:space-between; gap:20px; align-items:center; }
-    .footer-left{ font-weight:600; color:var(--primary); }
-    .footer-right{ color:var(--muted); font-size:0.95rem; }
+    .card {
+      background: var(--card);
+      padding: 30px;
+      border-radius: 14px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+    }
 
-    /* Password modal */
-    #passwordModal{ position:fixed; inset:0; display:flex; align-items:center; justify-content:center; background:linear-gradient(rgba(6,10,8,0.6), rgba(6,10,8,0.45)); z-index:9999; }
-    .password-container{ max-width:420px; width:92%; padding:34px; border-radius:14px; background:var(--card); box-shadow:0 30px 80px rgba(0,0,0,0.25); text-align:center; }
-    .password-container h2{ margin:0 0 8px 0; color:var(--primary); }
-    .password-input{ width:100%; padding:12px; border-radius:8px; border:1px solid #e6e6e6; margin-top:12px; }
-    .password-btn{ width:100%; margin-top:12px; padding:12px; border-radius:8px; background:var(--primary); color:white; border:none; cursor:pointer; font-weight:700; }
+    iframe {
+      width: 100%;
+      height: 320px;
+      border-radius: 12px;
+      border: none;
+      margin-top: 15px;
+    }
 
-    @media (max-width: 880px){
-      .hero{ padding:32px; }
-      .hero h1{ font-size:2.2rem; }
-      nav{ left:12px; transform:none; width:calc(100% - 24px); }
+    footer {
+      text-align: center;
+      padding: 40px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    /* Grocery list */
+    #groceryList li {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 8px;
+      padding: 6px 0;
+      border-bottom: 1px solid #eee;
+    }
+
+    #groceryList button {
+      border: none;
+      background: transparent;
+      color: #b91c1c;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    /* PASSWORD PROTECTION */
+    #passwordModal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(31, 77, 55, 0.95);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+    }
+
+    #passwordModal.hidden {
+      display: none;
+    }
+
+    .password-container {
+      background: var(--card);
+      padding: 50px;
+      border-radius: 20px;
+      text-align: center;
+      max-width: 400px;
+      box-shadow: 0 25px 60px rgba(0,0,0,0.2);
+    }
+
+    .password-container h2 {
+      color: var(--primary);
+      margin-bottom: 10px;
+      font-size: 1.8rem;
+    }
+
+    .password-container p {
+      color: var(--muted);
+      margin-bottom: 25px;
+      font-size: 0.95rem;
+    }
+
+    .password-input {
+      width: 100%;
+      padding: 12px;
+      border: 2px solid #e5e7eb;
+      border-radius: 8px;
+      font-size: 1rem;
+      margin-bottom: 15px;
+      box-sizing: border-box;
+    }
+
+    .password-input:focus {
+      outline: none;
+      border-color: var(--accent);
+    }
+
+    .password-btn {
+      width: 100%;
+      padding: 12px;
+      background: var(--accent);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .password-btn:hover {
+      background: var(--primary);
+    }
+
+    .password-error {
+      color: #b91c1c;
+      font-size: 0.9rem;
+      margin-top: 10px;
+      display: none;
+    }
+
+    .password-error.show {
+      display: block;
+    }
+
+    @media (max-width: 768px) {
+      .hero { padding: 40px 25px; }
+      .hero h1 { font-size: 2.5rem; }
+      nav { padding: 12px 20px; }
+      .nav-links { display: none; }
+      .password-container { padding: 40px 25px; }
     }
   </style>
 </head>
@@ -211,8 +409,7 @@
 </section>
 
 <footer>
-  <div class="footer-left">Midsummer Gathering — June 19–21, 2026</div>
-  <div class="footer-right">Organiser: <strong>Anna &amp; Friends</strong> • Contact: <a href="mailto:organiser@example.com">organiser@example.com</a></div>
+  © 2026 Midsummer Gathering
 </footer>
 
 <script>
