@@ -23,9 +23,7 @@
       font-family: 'Inter', sans-serif;
     }
 
-    html {
-      scroll-behavior: smooth;
-    }
+    html { scroll-behavior: smooth; }
 
     body {
       background: url("background.png") no-repeat center center/cover;
@@ -68,9 +66,7 @@
       font-size: 14px;
     }
 
-    .nav-links a:hover {
-      color: var(--accent);
-    }
+    .nav-links a:hover { color: var(--accent); }
 
     /* HERO */
     header {
@@ -101,7 +97,6 @@
       margin-top: 16px;
       color: var(--muted);
       font-size: 1.1rem;
-      line-height: 1.6;
     }
 
     .countdown {
@@ -119,14 +114,13 @@
       color: white;
       text-decoration: none;
       font-weight: 600;
-      transition: 0.2s;
+      border: none;
+      cursor: pointer;
     }
 
-    .cta-btn:hover {
-      background: var(--primary);
-    }
+    .cta-btn:hover { background: var(--primary); }
 
-    /* DETAILS STRIP */
+    /* DETAILS */
     .details {
       display: flex;
       justify-content: center;
@@ -181,27 +175,6 @@
       margin-top: 15px;
     }
 
-    /* GALLERY */
-    .gallery {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 16px;
-      margin-top: 20px;
-    }
-
-    .gallery img {
-      width: 100%;
-      height: 180px;
-      object-fit: cover;
-      border-radius: 12px;
-      transition: 0.3s;
-    }
-
-    .gallery img:hover {
-      transform: scale(1.03);
-    }
-
-    /* FOOTER */
     footer {
       text-align: center;
       padding: 40px;
@@ -209,39 +182,43 @@
       font-size: 14px;
     }
 
+    /* Grocery list */
+    #groceryList li {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 8px;
+      padding: 6px 0;
+      border-bottom: 1px solid #eee;
+    }
+
+    #groceryList button {
+      border: none;
+      background: transparent;
+      color: #b91c1c;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
     @media (max-width: 768px) {
-      .hero {
-        padding: 40px 25px;
-      }
-
-      .hero h1 {
-        font-size: 2.5rem;
-      }
-
-      nav {
-        padding: 12px 20px;
-      }
-
-      .nav-links {
-        display: none;
-      }
+      .hero { padding: 40px 25px; }
+      .hero h1 { font-size: 2.5rem; }
+      nav { padding: 12px 20px; }
+      .nav-links { display: none; }
     }
   </style>
 </head>
 
 <body>
 
-<!-- NAVBAR -->
 <nav>
   <div class="logo">Midsummer</div>
   <div class="nav-links">
     <a href="#location">Location</a>
     <a href="#travel">Travel</a>
-    <a href="#gallery">Gallery</a>
+    <a href="#grocery">Grocery</a>
   </div>
 </nav>
 
-<!-- HERO -->
 <header>
   <div class="hero">
     <h1>Midsummer 2026</h1>
@@ -251,7 +228,6 @@
   </div>
 </header>
 
-<!-- DETAILS STRIP -->
 <div class="details">
   <div class="detail-box">
     <h3>Date</h3>
@@ -267,7 +243,6 @@
   </div>
 </div>
 
-<!-- LOCATION -->
 <section id="location">
   <div class="card">
     <h2>Location</h2>
@@ -276,7 +251,6 @@
   </div>
 </section>
 
-<!-- TRAVEL -->
 <section id="travel">
   <div class="card">
     <h2>How to Get There</h2>
@@ -288,28 +262,28 @@
 
     <br/>
 
-    <p><strong>Option 1:</strong> 10:00–13:00 Grisslehamn → Eckerö (Bus 07:30 Cityterminalen)</p>
-    <p><strong>Option 2:</strong> 15:00–18:00 Grisslehamn → Eckerö (Bus 12:30 Cityterminalen)</p>
-
-    <br/>
-
-    <p>
-      After arriving in Eckerö, the summer place is close by. Transport will be arranged by boat or car depending on timing.
-    </p>
+    <p><strong>Option 1:</strong> 10:00–13:00 Grisslehamn → Eckerö</p>
+    <p><strong>Option 2:</strong> 15:00–18:00 Grisslehamn → Eckerö</p>
   </div>
 </section>
 
-<!-- GALLERY -->
-<section id="gallery">
+<!-- GROCERY LIST -->
+<section id="grocery">
   <div class="card">
-    <h2>Gallery</h2>
+    <h2>Grocery List Wishes</h2>
+    <p>We will do a grocery haul on Friday morning. Add your wishes below:</p>
 
-    <div class="gallery">
-      <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e" />
-      <img src="https://images.unsplash.com/photo-1500375592092-40eb2168fd21" />
-      <img src="https://images.unsplash.com/photo-1493558103817-58b2924bce98" />
-      <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee" />
+    <div style="margin-top: 20px; display: flex; gap: 10px; flex-wrap: wrap;">
+      <input 
+        type="text" 
+        id="groceryInput"
+        placeholder="e.g. strawberries, chips, drinks..."
+        style="flex: 1; padding: 12px; border-radius: 8px; border: 1px solid #ddd;"
+      />
+      <button class="cta-btn" onclick="addItem()">Add Item</button>
     </div>
+
+    <ul id="groceryList" style="margin-top: 20px; padding-left: 20px;"></ul>
   </div>
 </section>
 
@@ -318,11 +292,12 @@
 </footer>
 
 <script>
+  // countdown
   const countdownEl = document.getElementById("countdown");
   const targetDate = new Date("June 19, 2026 00:00:00").getTime();
 
   function updateCountdown() {
-    const now = new Date().getTime();
+    const now = Date.now();
     const distance = targetDate - now;
 
     if (distance < 0) {
@@ -330,9 +305,9 @@
       return;
     }
 
-    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-    const hours = Math.floor((distance / (1000 * 60 * 60)) % 24);
-    const minutes = Math.floor((distance / (1000 * 60)) % 60);
+    const days = Math.floor(distance / 86400000);
+    const hours = Math.floor((distance / 3600000) % 24);
+    const minutes = Math.floor((distance / 60000) % 60);
     const seconds = Math.floor((distance / 1000) % 60);
 
     countdownEl.innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s`;
@@ -340,10 +315,68 @@
 
   setInterval(updateCountdown, 1000);
   updateCountdown();
+
+  // grocery list with localStorage
+  const input = document.getElementById("groceryInput");
+  const list = document.getElementById("groceryList");
+
+  function getItems() {
+    return JSON.parse(localStorage.getItem("groceryItems")) || [];
+  }
+
+  function saveItems(items) {
+    localStorage.setItem("groceryItems", JSON.stringify(items));
+  }
+
+  function render() {
+    const items = getItems();
+    list.innerHTML = "";
+
+    items.forEach((item, index) => {
+      const li = document.createElement("li");
+
+      const span = document.createElement("span");
+      span.textContent = item;
+
+      const btn = document.createElement("button");
+      btn.textContent = "✕";
+
+      btn.onclick = () => {
+        const items = getItems();
+        items.splice(index, 1);
+        saveItems(items);
+        render();
+      };
+
+      li.appendChild(span);
+      li.appendChild(btn);
+      list.appendChild(li);
+    });
+  }
+
+  function addItem() {
+    const value = input.value.trim();
+    if (!value) return;
+
+    const items = getItems();
+    items.push(value);
+
+    saveItems(items);
+    render();
+
+    input.value = "";
+  }
+
+  input.addEventListener("keypress", (e) => {
+    if (e.key === "Enter") addItem();
+  });
+
+  render();
 </script>
 
 </body>
 </html>
+
 
 
 
